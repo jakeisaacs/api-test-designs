@@ -1,15 +1,16 @@
 const workoutService = require("../services/workoutService");
 
 const getAllWorkouts = (req, res) => {
-    try {
-        const allWorkouts = workoutService.getAllWorkouts();
-        res.send({ status: "OK", data: allWorkouts });
-      } catch (error) {
-        res
-          .status(error?.status || 500)
-          .send({ status: "FAILED", data: { error: error?.message || error } });
-    }
-  };
+  const filterParams = req.query;
+  try {
+      const allWorkouts = workoutService.getAllWorkouts(filterParams);
+      res.send({ status: "OK", data: allWorkouts });
+    } catch (error) {
+      res
+        .status(error?.status || 500)
+        .send({ status: "FAILED", data: { error: error?.message || error } });
+  }
+};
   
   const getOneWorkout = (req, res) => {
     const {
